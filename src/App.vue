@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent, onMounted, onUnmounted, ref } from 'vue';
-import Button from 'primevue/button';
 import Select from 'primevue/select';
 import SelectButton from 'primevue/selectbutton';
 import MultiSelect from 'primevue/multiselect';
@@ -25,8 +24,6 @@ const page = ref<Page>('Bingo');
 const data = ref<ExportResult | null>(null);
 const loading = ref(true);
 const error = ref('');
-const imported = ref(false);
-const upload = ref<HTMLInputElement>();
 const tile = ref<Tile | null>(null);
 const barrows = ref<string | null>(null);
 const metric = ref<Metric>('kills');
@@ -86,8 +83,8 @@ const attributionCount = Object.keys(manifest).length;
 function navigate(next: Page) { page.value = next; search.value = ''; location.hash = next.toLowerCase(); }
 function syncHash() { const p = pages.find(p => p.toLowerCase() === location.hash.slice(1).toLowerCase()); if (p) page.value = p; }
 function openPerson(p: Person) { selectedPlayer.value = p.player.username; tile.value = null; barrows.value = null; navigate('Players'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-function accept(x: unknown, isImport: boolean) {
-  const parsed = parseExport(x); data.value = parsed; imported.value = isImport;
+function accept(x: unknown) {
+  const parsed = parseExport(x); data.value = parsed;
   teamFilter.value = null; bossFilter.value = null; comparison.value = []; tile.value = null; barrows.value = null;
   const ps = people(parsed);
   selectedTeam.value = parsed.teams[0]?.name ?? 'No team'; selectedPlayer.value = ps[0]?.player.username ?? '';
@@ -95,16 +92,9 @@ function accept(x: unknown, isImport: boolean) {
 }
 async function loadDefault() {
   loading.value = true; error.value = '';
-  try { const response = await fetch(defaultDataUrl, { cache: 'no-store' }); if (!response.ok) throw new Error(`Could not load the default export (HTTP ${response.status}).`); accept(await response.json(), false); }
+  try { const response = await fetch(defaultDataUrl, { cache: 'no-store' }); if (!response.ok) throw new Error(`Could not load the default export (HTTP ${response.status}).`); accept(await response.json()); }
   catch (e) { error.value = e instanceof Error ? e.message : String(e); }
   finally { loading.value = false; }
-}
-async function importFile(event: Event) {
-  const input = event.target as HTMLInputElement; const file = input.files?.[0]; if (!file) return;
-  error.value = '';
-  try { if (file.size > 20 * 1024 * 1024) throw new Error('Please import an export smaller than 20 MB.'); accept(JSON.parse(await file.text()), true); }
-  catch (e) { error.value = e instanceof Error ? e.message : String(e); }
-  input.value = '';
 }
 onMounted(() => { syncHash(); window.addEventListener('hashchange', syncHash); loadDefault(); });
 onUnmounted(() => window.removeEventListener('hashchange', syncHash));
@@ -121,7 +111,7 @@ onUnmounted(() => window.removeEventListener('hashchange', syncHash));
       <div class="sidebar-bottom"><i class="pi pi-database"></i><span>Powered by Wise Old Man<small>Local competition insights</small></span></div>
     </aside>
     <div class="workspace">
-      <header class="topbar"><div class="breadcrumb"><span>Clan events</span><i class="pi pi-angle-right"></i><strong>{{ page }}</strong></div><div class="toolbar"><span class="source-chip">{{ imported ? 'Imported JSON' : 'Local export' }}</span><Button label="Reload" icon="pi pi-refresh" severity="secondary" size="small" :loading="loading" @click="loadDefault" /><Button label="Import JSON" icon="pi pi-upload" severity="secondary" size="small" @click="upload?.click()" /><input ref="upload" type="file" accept=".json,application/json" class="hidden" aria-label="Import competition export" @change="importFile"></div></header>
+      <header class="topbar"><div class="breadcrumb"><span>Clan events</span><i class="pi pi-angle-right"></i><strong>{{ page }}</strong></div><div class="toolbar"><span class="source-chip">Committed export</span></div></header>
       <main id="main">
         <div v-if="error" role="alert" class="error-banner"><i class="pi pi-exclamation-triangle"></i>{{ error }}</div>
         <div v-if="loading && !data" class="empty-state"><i class="pi pi-spin pi-spinner"></i><h2>Opening the crypts…</h2></div>

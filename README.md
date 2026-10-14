@@ -22,11 +22,19 @@ and full start/end/gained boss statistics. Player colors always follow their tea
 Team and boss filters apply to aggregate views; individual profiles show the full
 competition. Table alternatives accompany charts. Dates use Europe/Amsterdam.
 
-The default dataset is `output/competition-160537-bosses.json`. Use **Import JSON**
-to load another exporter result into browser memory. Invalid imports leave the
-previous dataset intact. **Reload** reloads the default dataset. In development,
-rerun `npm run export` and reload; deployed/static production builds require a new
-build after replacing the default file. No API calls are made by the dashboard.
+The dashboard reads the committed dataset at
+`output/competition-160537-bosses.json`. Website visitors cannot reload or import
+competition data. Run the exporter manually to update it:
+
+```sh
+npm run export
+git add output/competition-160537-bosses.json
+git commit -m "Update competition boss data"
+git push
+```
+
+The Pages workflow rebuilds and deploys the committed snapshot after pushes to
+`main`. The dashboard and workflow never call the WOM API; exports remain manual.
 
 **Expected drops** are expected item quantities, never confirmed loot or crafted
 sets. Fixed estimates use the available eligible player credits and verified
@@ -59,6 +67,29 @@ Browser tests use installed macOS Chrome when available; otherwise install
 Playwright Chromium with `npx playwright install chromium`. A custom binary can
 be selected with `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`. Tests launch and stop their
 own Vite server on port 5174.
+
+## GitHub Pages deployment
+
+`.github/workflows/pages.yml` tests and builds on pull requests, then builds and
+deploys `dist` on pushes to `main` or manual workflow runs. It uses Node.js 24,
+`npm ci`, a Pages artifact, and the `github-pages` deployment environment. Source
+images and exported JSON work under `/dt-bingo-dashboard/`; local development
+continues to use `/`.
+
+Enable **Settings → Pages → Build and deployment → Source → GitHub Actions**.
+GitHub Pages for this private repository requires GitHub Pro or another eligible
+paid plan. The current Free account rejected Pages setup; the workflow is ready,
+but deployment remains blocked until the plan supports the private repository
+or its owner explicitly chooses to make the repository public. Repository
+visibility is not changed by the workflow. See
+[GitHub Pages availability](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+
+To reproduce the Pages build and browser checks locally:
+
+```sh
+VITE_BASE_PATH=/dt-bingo-dashboard/ npm run build
+PLAYWRIGHT_PREVIEW=1 PLAYWRIGHT_BASE_PATH=/dt-bingo-dashboard/ npm run test:e2e
+```
 
 ## Reusable competition exporter
 

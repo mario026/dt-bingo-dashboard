@@ -203,3 +203,5 @@ summary { cursor: pointer; color: #bcc7ae; font-size: 11px; padding: 8px 0; }
 
 .boss-title { position: relative; padding-right: 105px; }
 .boss-portrait { position: absolute; top: 20px; right: 20px; opacity: .85; }
+
+@media (max-width: 650px) { .topbar .source-chip { display: inline; } }

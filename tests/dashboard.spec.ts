@@ -1,15 +1,16 @@
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
-test.beforeEach(async ({ page }) => { await page.goto('/'); await expect(page.getByRole('heading', { name: 'Choose a crypt' })).toBeVisible(); });
+test.beforeEach(async ({ page }) => { await page.goto('./'); await expect(page.getByRole('heading', { name: 'Choose a crypt' })).toBeVisible(); });
 test('renders all crypts and tiles without inferred completion status', async ({ page }, info) => {
   await expect(page.locator('.crypt-card')).toHaveCount(6);
   await expect(page.locator('.bingo-tile')).toHaveCount(54);
   await expect(page.locator('.barrows-link')).toHaveCount(6);
+  const image = page.locator('.crypt-identity img').first();
+  await expect(image).toBeVisible();
+  await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
   expect(new Set(await page.locator('.barrows-link strong').allTextContents()).size).toBe(1);
   await expect(page.locator('.bingo-summary')).toContainText('39,223');
   await expect(page.locator('.bingo-summary')).toContainText('1,056.71');
-  const config = await page.request.get('/node_modules/.vite/deps/primevue_config.js');
-  expect(await config.text()).not.toContain('license-manager');
   await expect(page.getByText('Invalid PrimeUI License', { exact: true })).toHaveCount(0);
   for (const card of await page.locator('.crypt-card').all()) await card.scrollIntoViewIfNeeded();
   await page.evaluate(() => window.scrollTo(0, 0));
@@ -47,19 +48,16 @@ test('scenario inputs require assumptions, persist, and reset', async ({ page })
   await drawer.getByRole('button', { name: 'Reset', exact: true }).click();
   await expect(drawer.getByLabel('Team rood eligible rolls')).toHaveValue('');
 });
-test('navigates analytics views, imports safely, and reloads default data', async ({ page }) => {
+test('navigates analytics views with script-managed data only', async ({ page }) => {
   const errors: string[] = []; page.on('pageerror', e => errors.push(e.message));
   for (const name of ['Overview', 'Teams', 'Players', 'Bosses']) {
     await page.getByRole('navigation').getByRole('link', { name, exact: true }).click();
     await expect(page.locator('.filters')).toBeVisible();
     await expect(page.locator('canvas').first()).toBeVisible();
   }
-  await page.locator('input[type=file]').setInputFiles({ name: 'bad.json', mimeType: 'application/json', buffer: Buffer.from('{}') });
-  await expect(page.getByRole('alert')).toContainText('Invalid competition export');
-  const data = JSON.parse(readFileSync('output/competition-160537-bosses.json', 'utf8'));
-  await page.locator('input[type=file]').setInputFiles({ name: 'export.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(data)) });
-  await expect(page.getByRole('alert')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Reload', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Reload', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Import JSON', exact: true })).toHaveCount(0);
+  await expect(page.locator('input[type=file]')).toHaveCount(0);
   await expect(page.locator('.data-strip')).toContainText('77/77');
   expect(errors).toEqual([]);
 });
