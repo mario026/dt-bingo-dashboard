@@ -76,12 +76,11 @@ deploys `dist` on pushes to `main` or manual workflow runs. It uses Node.js 24,
 images and exported JSON work under `/dt-bingo-dashboard/`; local development
 continues to use `/`.
 
-Enable **Settings → Pages → Build and deployment → Source → GitHub Actions**.
-GitHub Pages for this private repository requires GitHub Pro or another eligible
-paid plan. The current Free account rejected Pages setup; the workflow is ready,
-but deployment remains blocked until the plan supports the private repository
-or its owner explicitly chooses to make the repository public. Repository
-visibility is not changed by the workflow. See
+GitHub Pages is enabled with **GitHub Actions** as its publishing source. The
+repository is public, so deployment is supported on GitHub Free. The website is
+published at https://mario026.github.io/dt-bingo-dashboard/ after a successful
+workflow run. If the repository becomes private, Pages requires GitHub Pro or
+another eligible paid plan. Repository visibility is not changed by the workflow. See
 [GitHub Pages availability](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
 To reproduce the Pages build and browser checks locally:
