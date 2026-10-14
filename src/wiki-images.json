@@ -1,0 +1,578 @@
+{
+  "Elder chaos hood": {
+    "path": "/images/1.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Elder_chaos_hood.png"
+  },
+  "Malediction ward": {
+    "path": "/images/2.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Malediction_ward.png"
+  },
+  "Virtus mask": {
+    "path": "/images/3.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Virtus_mask.png"
+  },
+  "Dragon hunter wand": {
+    "path": "/images/4.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Dragon_hunter_wand.png"
+  },
+  "Occult necklace": {
+    "path": "/images/5.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Occult_necklace.png"
+  },
+  "Smoke ancient sceptre": {
+    "path": "/images/6.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Smoke_ancient_sceptre.png"
+  },
+  "Ancestral hat": {
+    "path": "/images/7.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Ancestral_hat.png"
+  },
+  "Twinflame staff": {
+    "path": "/images/8.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Twinflame_staff.png"
+  },
+  "Noxious halberd": {
+    "path": "/images/9.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Noxious_halberd.png"
+  },
+  "Saradomin sword": {
+    "path": "/images/10.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Saradomin_sword.png"
+  },
+  "Bandos godsword": {
+    "path": "/images/11.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Bandos_godsword.png"
+  },
+  "Black mask": {
+    "path": "/images/12.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Black_mask.png"
+  },
+  "Oathplate helm": {
+    "path": "/images/13.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Oathplate_helm.png"
+  },
+  "Hallowfell": {
+    "path": "/images/14.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Hallowfell.png"
+  },
+  "Hydra leather": {
+    "path": "/images/15.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Hydra_leather.png"
+  },
+  "Granite longsword": {
+    "path": "/images/16.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Granite_longsword.png"
+  },
+  "Avernic treads": {
+    "path": "/images/17.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Avernic_treads.png"
+  },
+  "Belle's folly": {
+    "path": "/images/18.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Belle%27s_folly.png"
+  },
+  "Treasonous ring": {
+    "path": "/images/19.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Treasonous_ring.png"
+  },
+  "Dragon harpoon": {
+    "path": "/images/20.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Dragon_harpoon.png"
+  },
+  "Dragon pickaxe": {
+    "path": "/images/21.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Dragon_pickaxe.png"
+  },
+  "Zamorakian spear": {
+    "path": "/images/22.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Zamorakian_spear.png"
+  },
+  "Tormented synapse": {
+    "path": "/images/23.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Tormented_synapse.png"
+  },
+  "Torva full helm": {
+    "path": "/images/24.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Torva_full_helm.png"
+  },
+  "Dragon platelegs": {
+    "path": "/images/25.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Dragon_platelegs.png"
+  },
+  "Dragon crossbow": {
+    "path": "/images/26.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Dragon_crossbow.png"
+  },
+  "Aranea boots": {
+    "path": "/images/27.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Aranea_boots.png"
+  },
+  "Armadyl helmet": {
+    "path": "/images/28.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Armadyl_helmet.png"
+  },
+  "Masori mask": {
+    "path": "/images/29.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Masori_mask.png"
+  },
+  "Heavy ballista": {
+    "path": "/images/30.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Heavy_ballista.png"
+  },
+  "Etched elder venator fang": {
+    "path": "/images/31.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Etched_elder_venator_fang.png"
+  },
+  "Crystal legs": {
+    "path": "/images/32.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Crystal_legs.png"
+  },
+  "Aquanite tendon": {
+    "path": "/images/33.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Aquanite_tendon.png"
+  },
+  "Seercull": {
+    "path": "/images/34.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Seercull.png"
+  },
+  "Zombie helmet": {
+    "path": "/images/35.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Zombie_helmet.png"
+  },
+  "Inquisitor's great helm": {
+    "path": "/images/36.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Inquisitor%27s_great_helm.png"
+  },
+  "Sarachnis cudgel": {
+    "path": "/images/37.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Sarachnis_cudgel.png"
+  },
+  "Amulet of torture": {
+    "path": "/images/38.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Amulet_of_torture.png"
+  },
+  "Dragon warhammer": {
+    "path": "/images/39.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Dragon_warhammer.png"
+  },
+  "Tyrannical ring": {
+    "path": "/images/40.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Tyrannical_ring.png"
+  },
+  "Granite hammer": {
+    "path": "/images/41.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Granite_hammer.png"
+  },
+  "Hill giant club": {
+    "path": "/images/42.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Hill_giant_club.png"
+  },
+  "Draconic visage": {
+    "path": "/images/43.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Draconic_visage.png"
+  },
+  "Echo crystal": {
+    "path": "/images/44.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Echo_crystal.png"
+  },
+  "Obsidian helmet": {
+    "path": "/images/45.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Obsidian_helmet.png"
+  },
+  "Granite boots": {
+    "path": "/images/46.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Granite_boots.png"
+  },
+  "Blood shard": {
+    "path": "/images/47.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Blood_shard.png"
+  },
+  "Blessed spirit shield": {
+    "path": "/images/48.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Blessed_spirit_shield.png"
+  },
+  "Basilisk jaw": {
+    "path": "/images/49.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Basilisk_jaw.png"
+  },
+  "Justiciar faceguard": {
+    "path": "/images/50.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Justiciar_faceguard.png"
+  },
+  "Primordial boots": {
+    "path": "/images/51.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Primordial_boots.png"
+  },
+  "Elder chaos robe": {
+    "path": "/images/52.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Elder_chaos_robe.png"
+  },
+  "Elder chaos top": {
+    "path": "/images/53.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Elder_chaos_top.png"
+  },
+  "Malediction shard 1": {
+    "path": "/images/54.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Malediction_shard_1.png"
+  },
+  "Malediction shard 2": {
+    "path": "/images/55.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Malediction_shard_2.png"
+  },
+  "Malediction shard 3": {
+    "path": "/images/56.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Malediction_shard_3.png"
+  },
+  "Ancient staff": {
+    "path": "/images/57.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Ancient_staff.png"
+  },
+  "Ancient icon": {
+    "path": "/images/58.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Ancient_icon.png"
+  },
+  "Smoke quartz": {
+    "path": "/images/59.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Smoke_quartz.png"
+  },
+  "Ice element staff crown": {
+    "path": "/images/60.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Ice_element_staff_crown.png"
+  },
+  "Fire element staff crown": {
+    "path": "/images/61.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Fire_element_staff_crown.png"
+  },
+  "Magic fang": {
+    "path": "/images/62.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Magic_fang.png"
+  },
+  "Noxious pommel": {
+    "path": "/images/63.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Noxious_pommel.png"
+  },
+  "Godsword shard 1": {
+    "path": "/images/64.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Godsword_shard_1.png"
+  },
+  "Bandos hilt": {
+    "path": "/images/65.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Bandos_hilt.png"
+  },
+  "Belle's folly (tarnished)": {
+    "path": "/images/66.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Belle%27s_folly_(tarnished).png"
+  },
+  "Drake's claw": {
+    "path": "/images/67.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Drake%27s_claw.png"
+  },
+  "Torva full helm (damaged)": {
+    "path": "/images/68.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Torva_full_helm_(damaged).png"
+  },
+  "Dragon limbs": {
+    "path": "/images/69.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Dragon_limbs.png"
+  },
+  "Ballista spring": {
+    "path": "/images/70.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Ballista_spring.png"
+  },
+  "Ballista limbs": {
+    "path": "/images/71.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Ballista_limbs.png"
+  },
+  "Monkey tail": {
+    "path": "/images/72.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Monkey_tail.png"
+  },
+  "Heavy frame": {
+    "path": "/images/73.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Heavy_frame.png"
+  },
+  "Elder venator fang": {
+    "path": "/images/74.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Elder_venator_fang.png"
+  },
+  "Crystal armour seed": {
+    "path": "/images/75.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Crystal_armour_seed.png"
+  },
+  "Archers ring": {
+    "path": "/images/76.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Archers_ring.png"
+  },
+  "Zenyte shard": {
+    "path": "/images/77.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Zenyte_shard.png"
+  },
+  "Uncut onyx": {
+    "path": "/images/78.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Uncut_onyx.png"
+  },
+  "Obsidian platebody": {
+    "path": "/images/79.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Obsidian_platebody.png"
+  },
+  "Obsidian platelegs": {
+    "path": "/images/80.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Obsidian_platelegs.png"
+  },
+  "Spirit shield": {
+    "path": "/images/81.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Spirit_shield.png"
+  },
+  "Holy elixir": {
+    "path": "/images/82.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Holy_elixir.png"
+  },
+  "Primordial crystal": {
+    "path": "/images/83.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Primordial_crystal.png"
+  },
+  "Dragon boots": {
+    "path": "/images/84.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Dragon_boots.png"
+  },
+  "Ahrim's hood": {
+    "path": "/images/85.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Ahrim%27s_hood.png"
+  },
+  "Dharok's helm": {
+    "path": "/images/86.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Dharok%27s_helm.png"
+  },
+  "Guthan's helm": {
+    "path": "/images/87.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Guthan%27s_helm.png"
+  },
+  "Karil's coif": {
+    "path": "/images/88.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Karil%27s_coif.png"
+  },
+  "Torag's helm": {
+    "path": "/images/89.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Torag%27s_helm.png"
+  },
+  "Verac's helm": {
+    "path": "/images/90.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Verac%27s_helm.png"
+  },
+  "Trident of the swamp": {
+    "path": "/images/91.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Trident_of_the_Swamp.png"
+  },
+  "Boots of brimstone": {
+    "path": "/images/92.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Boots_of_Brimstone.png"
+  },
+  "Blood moon helm": {
+    "path": "/images/93.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Blood_Moon_helm.png"
+  },
+  "Trident of the seas": {
+    "path": "/images/94.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Trident_of_the_Seas.png"
+  },
+  "Abyssal Sire": {
+    "path": "/images/95.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Abyssal_Sire.png"
+  },
+  "Amoxliatl": {
+    "path": "/images/96.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Amoxliatl.png"
+  },
+  "Araxxor": {
+    "path": "/images/97.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Araxxor.png"
+  },
+  "Artio": {
+    "path": "/images/98.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Artio.png"
+  },
+  "Brutus": {
+    "path": "/images/99.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Brutus.png"
+  },
+  "Bryophyta": {
+    "path": "/images/100.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Bryophyta.png"
+  },
+  "Callisto": {
+    "path": "/images/101.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Callisto.png"
+  },
+  "Calvar'ion": {
+    "path": "/images/102.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Calvar%27ion.png"
+  },
+  "Cerberus": {
+    "path": "/images/103.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Cerberus.png"
+  },
+  "Chaos Elemental": {
+    "path": "/images/104.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Chaos_Elemental.png"
+  },
+  "Chaos Fanatic": {
+    "path": "/images/105.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Chaos_Fanatic.png"
+  },
+  "Commander Zilyana": {
+    "path": "/images/106.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Commander_Zilyana.png"
+  },
+  "Corporeal Beast": {
+    "path": "/images/107.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Corporeal_Beast.png"
+  },
+  "Dagannoth Prime": {
+    "path": "/images/108.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Dagannoth_Prime.png"
+  },
+  "Dagannoth Rex": {
+    "path": "/images/109.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Dagannoth_Rex.png"
+  },
+  "Dagannoth Supreme": {
+    "path": "/images/110.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Dagannoth_Supreme.png"
+  },
+  "Doom of Mokhaiotl": {
+    "path": "/images/111.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Doom_of_Mokhaiotl.png"
+  },
+  "Duke Sucellus": {
+    "path": "/images/112.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Duke_Sucellus.png"
+  },
+  "General Graardor": {
+    "path": "/images/113.png",
+    "source": "https://oldschool.runescape.wiki/w/File:General_Graardor.png"
+  },
+  "Giant Mole": {
+    "path": "/images/114.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Giant_Mole.png"
+  },
+  "Hespori": {
+    "path": "/images/115.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Hespori.png"
+  },
+  "Kalphite Queen": {
+    "path": "/images/116.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Kalphite_Queen.png"
+  },
+  "King Black Dragon": {
+    "path": "/images/117.png",
+    "source": "https://oldschool.runescape.wiki/w/File:King_Black_Dragon.png"
+  },
+  "Kraken": {
+    "path": "/images/118.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Kraken.png"
+  },
+  "Kree'arra": {
+    "path": "/images/119.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Kree%27arra.png"
+  },
+  "K'ril Tsutsaroth": {
+    "path": "/images/120.png",
+    "source": "https://oldschool.runescape.wiki/w/File:K%27ril_Tsutsaroth.png"
+  },
+  "Mad Angel": {
+    "path": "/images/121.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Mad_Angel.png"
+  },
+  "Maggot King": {
+    "path": "/images/122.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Maggot_King.png"
+  },
+  "Mimic": {
+    "path": "/images/123.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Mimic.png"
+  },
+  "Nex": {
+    "path": "/images/124.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Nex.png"
+  },
+  "The Nightmare": {
+    "path": "/images/125.png",
+    "source": "https://oldschool.runescape.wiki/w/File:The_Nightmare.png"
+  },
+  "Obor": {
+    "path": "/images/126.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Obor.png"
+  },
+  "Sarachnis": {
+    "path": "/images/127.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Sarachnis.png"
+  },
+  "Scorpia": {
+    "path": "/images/128.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Scorpia.png"
+  },
+  "Scurrius": {
+    "path": "/images/129.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Scurrius.png"
+  },
+  "Skotizo": {
+    "path": "/images/130.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Skotizo.png"
+  },
+  "Sol Heredit": {
+    "path": "/images/131.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Sol_Heredit.png"
+  },
+  "Spindel": {
+    "path": "/images/132.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Spindel.png"
+  },
+  "Tempoross": {
+    "path": "/images/133.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Tempoross.png"
+  },
+  "The Gauntlet": {
+    "path": "/images/134.png",
+    "source": "https://oldschool.runescape.wiki/w/File:The_Gauntlet.png"
+  },
+  "The Hueycoatl": {
+    "path": "/images/135.png",
+    "source": "https://oldschool.runescape.wiki/w/File:The_Hueycoatl.png"
+  },
+  "The Leviathan": {
+    "path": "/images/136.png",
+    "source": "https://oldschool.runescape.wiki/w/File:The_Leviathan.png"
+  },
+  "The Whisperer": {
+    "path": "/images/137.png",
+    "source": "https://oldschool.runescape.wiki/w/File:The_Whisperer.png"
+  },
+  "Tombs of Amascut": {
+    "path": "/images/138.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Tombs_of_Amascut.png"
+  },
+  "Vardorvis": {
+    "path": "/images/139.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Vardorvis.png"
+  },
+  "Venenatis": {
+    "path": "/images/140.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Venenatis.png"
+  },
+  "Vet'ion": {
+    "path": "/images/141.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Vet%27ion.png"
+  },
+  "Vorkath": {
+    "path": "/images/142.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Vorkath.png"
+  },
+  "Yama": {
+    "path": "/images/143.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Yama.png"
+  },
+  "Zalcano": {
+    "path": "/images/144.png",
+    "source": "https://oldschool.runescape.wiki/w/File:Zalcano.png"
+  }
+}
