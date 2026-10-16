@@ -244,17 +244,3 @@ summary { cursor: pointer; color: #bcc7ae; font-size: 11px; padding: 8px 0; }
 .prediction-inputs .p-inputnumber, .prediction-inputs input { min-width: 0; width: 100%; }
 @media (max-width: 1200px) { .prediction-leaders { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 650px) { .prediction-banner { flex-direction: column; padding: 18px; } .prediction-banner h2 { font-size: 24px; } .prediction-leaders { grid-template-columns: repeat(2, minmax(0, 1fr)); } .prediction-leader:last-child { grid-column: 1 / -1; } .prediction-inputs { grid-template-columns: 1fr; } .prediction-matrix th:first-child { min-width: 155px; width: 155px; } .prediction-comparison { padding: 12px; } .prediction-comparison .p-selectbutton { max-width: 100%; overflow: auto; } nav a { font-size: 9px; padding-inline: 6px; } }
-
-.boss-luck { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
-.boss-luck > * { min-width: 0; }
-.luck-highlights { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-.luck-highlights article { padding: 1rem; border: 1px solid var(--line); border-radius: .75rem; background: #ffffff04; }
-.luck-highlights h3 { margin-bottom: .6rem; }
-.luck-highlights strong { font-size: 1.25rem; }
-.boss-luck summary { cursor: pointer; padding-block: .6rem; }
-.boss-luck details p { margin-block: .8rem; }
-.loot-source-select { width: 100%; max-width: 100%; }
-.loot-source-select .p-select-label { white-space: normal; }
-.luck-entry .prediction-inputs { margin-block: 1rem; }
-.luck-boss { margin-top: 1.5rem; }
-@media (max-width: 640px) { .luck-highlights { grid-template-columns: 1fr; } }
