@@ -14,7 +14,8 @@ The Bingo page contains all six crypts and 54 numbered tiles. Click a tile for i
 requirements, sourced drop rates, recorded team activity, fixed-rate expectations,
 and player contributions. The crypt headers show the same shared Barrows chest
 activity. Armour drops, die rolls, unlocked tiles, actual loot, and completion
-scores are not available and are never inferred.
+scores are absent from the export. Results supports optional manual loot counts;
+these never establish tile completion or unlocks.
 
 Overview, Teams, Players, and Bosses provide kills and EHB rankings, per-member
 comparisons, contribution shares, player comparisons, a scatterplot, a heatmap,
@@ -66,6 +67,33 @@ The predictive baseline assumes an unranked record with zero gained kills means
 zero competition gains, marking the coverage as partial. Turn this assumption off
 in the methodology panel for strict coverage. Failed/missing records remain
 unavailable in either mode. The exporter and static-data deployment remain manual.
+
+## Boss luck
+
+Results includes **Driest & most spooned at bosses**. WOM has no drop outcomes,
+so this section starts unranked. Open **Enter actual boss drops**, select a
+source/category, and enter each team's actual item quantities for the export's
+recorded competition window. Include duplicates beyond tile requirements. Any-piece
+categories use combined eligible quantities; bundled drops use item quantities.
+Blank is unknown; explicitly enter zero for a team that received no items.
+
+Teams are compared only on categories with valid model expectations and entered
+counts for every selected team. Crypt/search and selected-team filters apply.
+The overall comparison and boss breakdown show actual items, expected items,
+actual/expected ratio, and standardized deviation:
+`(actual − expected) / sqrt(sum(eventMean × itemsPerDrop²))`.
+Negative deviations indicate dryness; positive deviations indicate spooning.
+Winners require at least two comparable teams; ties are retained. Categories with
+observed items but zero expected items are flagged and excluded for all teams.
+This compound-Poisson descriptive score assumes independent categories and uses
+the editable prediction assumptions, including shared-loot and eligibility
+hypotheses. It is not an exact significance test or an all-loot ranking.
+
+Counts are stored only in this browser, keyed by competition and exact export
+timestamp to prevent stale counts being compared with fresh KC. **Export entered
+loot** saves a JSON copy; **Clear loot counts** clears the current snapshot's
+ledger. Resetting prediction assumptions does not erase counts. No backend,
+automatic loot collection, or competition-data reload has been added.
 
 The dashboard reads the committed dataset at
 `output/competition-160537-bosses.json`. Website visitors cannot reload or import

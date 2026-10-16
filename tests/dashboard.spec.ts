@@ -141,3 +141,36 @@ test('Results assumptions recalculate predictions, persist, reset, and export', 
   await page.getByRole('button', { name: 'Export predictions', exact: true }).click();
   expect((await download).suggestedFilename()).toBe('competition-160537-predictions.json');
 });
+
+test('boss luck requires observed loot, compares teams, persists, and clears', async ({ page }) => {
+  await page.getByRole('navigation').getByRole('link', { name: 'Results', exact: true }).click();
+  const luck = page.locator('.boss-luck');
+  await expect(luck).toContainText('Awaiting actual loot counts');
+  await expect(luck.locator('.luck-ranking')).toHaveCount(0);
+  await page.getByLabel('Search Results tiles').fill('N1');
+  await expect(page.locator('.prediction-matrix tbody tr')).toHaveCount(1);
+  await luck.getByText('Enter actual boss drops', { exact: true }).click();
+  const teams = ['Team rood', 'Team Groen', 'Team Oranje', 'Team Geel', 'Team Blauw'];
+  for (const team of teams) {
+    const input = page.getByLabel(`${team} actual loot`, { exact: true });
+    await input.fill(team === 'Team rood' ? '50' : '0'); await input.press('Tab');
+  }
+  await expect(luck.locator('.luck-ranking tbody tr')).toHaveCount(5);
+  await expect(luck.locator('.luck-highlights article').last()).toContainText('Team rood');
+  const driest = exportData.teams.filter((t: any) => t.name !== 'Team rood').sort((a: any, b: any) => Object.values(b.players).reduce((n: number, p: any) => n + Math.max(0, p.bosses?.sarachnis?.kills.gained ?? 0), 0) - Object.values(a.players).reduce((n: number, p: any) => n + Math.max(0, p.bosses?.sarachnis?.kills.gained ?? 0), 0))[0].name;
+  await expect(luck.locator('.luck-highlights article').first()).toContainText(driest);
+  await page.reload();
+  await expect(luck.locator('.luck-ranking tbody tr')).toHaveCount(5);
+  await luck.getByText('Luck calculation and boss comparisons', { exact: true }).click();
+  await expect(luck.locator('.luck-boss')).toContainText('Sarachnis');
+  const download = page.waitForEvent('download');
+  await luck.getByText('Enter actual boss drops', { exact: true }).click();
+  await luck.getByRole('button', { name: 'Export entered loot' }).click();
+  expect((await download).suggestedFilename()).toBe('competition-160537-observed-loot.json');
+  await luck.getByRole('button', { name: 'Clear loot counts' }).scrollIntoViewIfNeeded();
+  await luck.getByRole('button', { name: 'Clear loot counts' }).click();
+  await expect(luck.locator('.luck-ranking')).toHaveCount(0);
+  await page.reload();
+  await expect(luck).toContainText('Awaiting actual loot counts');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
