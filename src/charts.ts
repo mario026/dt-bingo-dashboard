@@ -2,7 +2,7 @@ import type { EChartsOption } from 'echarts';
 import { number, total, value, bossValue, type Person, type Metric } from './analytics.ts';
 import { bossName } from './catalog.ts';
 const axis = { axisLine: { lineStyle: { color: '#33413b' } }, axisLabel: { color: '#a7b7af' }, splitLine: { lineStyle: { color: '#25332c' } } };
-export function bars(labels: string[], values: (number | null)[], colors: string[], metric: Metric): EChartsOption {
+export function bars(labels: string[], values: (number | null)[], colors: string[], metric: Metric | 'expected'): EChartsOption {
   return { grid: { left: 125, right: 40, top: 15, bottom: 25 }, tooltip: { trigger: 'axis', valueFormatter: n => number(Number(n), metric) }, xAxis: { type: 'value', ...axis }, yAxis: { type: 'category', inverse: true, data: labels, ...axis, axisLabel: { color: '#c9d4cd', width: 112, overflow: 'truncate' } }, series: [{ type: 'bar', barMaxWidth: 22, data: values.map((n, i) => ({ value: n, itemStyle: { color: colors[i], borderRadius: [0, 5, 5, 0] } })) }] };
 }
 export function scatter(ps: Person[], keys?: string[]): EChartsOption {

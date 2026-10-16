@@ -22,6 +22,51 @@ and full start/end/gained boss statistics. Player colors always follow their tea
 Team and boss filters apply to aggregate views; individual profiles show the full
 competition. Table alternatives accompany charts. Dates use Europe/Amsterdam.
 
+## Predicted Results
+
+The **Results** page compares all 37 tiles with tracked boss sources across the
+five teams. Switch the matrix between completion chance, expected tile points,
+and expected quantities for each required component. Clicking a tile opens its
+team comparison, component breakdown, source calculations, and model controls.
+Team columns, crypts, and item names can be filtered. Predictions can be exported
+as JSON, including the data timestamp and all model assumptions.
+
+The leaderboard sums `tile points × probability of obtaining all required drops`.
+It uses the same estimable tile set for all teams. The baseline currently scores
+35 tiles (75 possible points); N2 and R3 contain untracked required components,
+so their supported drops are shown but whole-tile points are unavailable.
+Search/crypt filters restrict the ranking's tile set; hiding team columns never
+changes the common scoring set or overall team ranks. EHB and all-boss kill totals
+are shown as context and do not multiply drop probabilities.
+
+Completion uses a compound Poisson rare-drop approximation and assumes
+independent components and pooled team loot. A bundle of seven items is modeled
+as one successful event, not seven independent events. Quantity requirements and
+alternative pieces are respected. A probability of at least 50% means "leaning
+finished", and at least 80% means "likely finished". Neither is confirmed loot,
+an unlocked crypt tile, or an official bingo score. Crafting supplies are assumed
+available; the model estimates rare-drop requirements. No future kills are projected.
+
+`src/predictions.ts` contains explicit conditional-rate hypotheses: normal DT2
+kills; three equal Hueycoatl/Wilderness contributors; equal Yama duo and five-player
+Nex/Nightmare shares; CoX personal points and the current 12/60 or 12/56 Ancestral
+weights; ToA raid levels/personal points; four-player, deathless ToB using current
+6/19 or 6/18 Justiciar weights; a half-and-half Royal Titans loot split; all Araxxor
+corpses harvested; 50% perfect Duke kills; six of nine eligible Doom delves at the
+minimum eligible rate; Blood Moon defeated in each chest; and qualifying Zalcano/
+Obor reward rolls. Each baseline's exact numbers, rationale, and Wiki link are
+visible in the selected tile's assumption panel. Rates were checked on 17 October
+2026; actual performance is not known from the export.
+
+Edit effective drop probability, eligible fraction, and items per drop to compare
+different hypotheses. Changes apply equally to all teams and are saved locally
+per competition; **Reset assumptions** restores the defaults. These settings are
+separate from the existing Bingo tile-drawer scenarios and never alter the data.
+The predictive baseline assumes an unranked record with zero gained kills means
+zero competition gains, marking the coverage as partial. Turn this assumption off
+in the methodology panel for strict coverage. Failed/missing records remain
+unavailable in either mode. The exporter and static-data deployment remain manual.
+
 The dashboard reads the committed dataset at
 `output/competition-160537-bosses.json`. Website visitors cannot reload or import
 competition data. Run the exporter manually to update it:

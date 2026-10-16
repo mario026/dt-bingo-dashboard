@@ -1,5 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
+const exportData = JSON.parse(readFileSync('output/competition-160537-bosses.json', 'utf8'));
+const exportedPlayers = exportData.teams.flatMap((t: any) => Object.values(t.players)) as any[];
+const sum = (ps: any[], metric: 'kills' | 'ehb') => ps.reduce((n, p) => n + Object.values(p.bosses ?? {}).reduce((s: number, b: any) => s + Math.max(0, b[metric].gained), 0), 0);
+const format = (n: number, precision = 0) => n.toLocaleString('en-GB', { minimumFractionDigits: precision, maximumFractionDigits: precision });
 test.beforeEach(async ({ page }) => { await page.goto('./'); await expect(page.getByRole('heading', { name: 'Choose a crypt' })).toBeVisible(); });
 test('renders all crypts and tiles without inferred completion status', async ({ page }, info) => {
   await expect(page.locator('.crypt-card')).toHaveCount(6);
@@ -9,8 +13,8 @@ test('renders all crypts and tiles without inferred completion status', async ({
   await expect(image).toBeVisible();
   await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
   expect(new Set(await page.locator('.barrows-link strong').allTextContents()).size).toBe(1);
-  await expect(page.locator('.bingo-summary')).toContainText('39,223');
-  await expect(page.locator('.bingo-summary')).toContainText('1,056.71');
+  await expect(page.locator('.bingo-summary')).toContainText(format(sum(exportedPlayers, 'kills')));
+  await expect(page.locator('.bingo-summary')).toContainText(format(sum(exportedPlayers, 'ehb'), 2));
   await expect(page.getByText('Invalid PrimeUI License', { exact: true })).toHaveCount(0);
   for (const card of await page.locator('.crypt-card').all()) await card.scrollIntoViewIfNeeded();
   await page.evaluate(() => window.scrollTo(0, 0));
@@ -65,8 +69,9 @@ test('applies team and boss filters to both primary metrics', async ({ page }, i
   await page.getByRole('navigation').getByRole('link', { name: 'Overview', exact: true }).click();
   await page.getByLabel('Filter teams', { exact: true }).click();
   await page.getByRole('option', { name: 'Team Groen', exact: true }).click();
-  await expect(page.locator('.stat-card').nth(0)).toContainText('9,960');
-  await expect(page.locator('.stat-card').nth(1)).toContainText('266.41');
+  const green = Object.values(exportData.teams.find((t: any) => t.name === 'Team Groen').players);
+  await expect(page.locator('.stat-card').nth(0)).toContainText(format(sum(green, 'kills')));
+  await expect(page.locator('.stat-card').nth(1)).toContainText(format(sum(green, 'ehb'), 2));
   await page.getByLabel('Filter boss', { exact: true }).click();
   await page.getByRole('option', { name: 'Sarachnis', exact: true }).click();
   const x = JSON.parse(readFileSync('output/competition-160537-bosses.json', 'utf8'));
@@ -91,4 +96,48 @@ test('supports keyboard tile access and team-colored player comparisons', async 
   await page.keyboard.press('Escape');
   await expect(page.locator('.player-link').filter({ hasText: 'Phantom4u' }).first()).toHaveCSS('color', 'rgb(248, 113, 113)');
   await expect(page.locator('.player-link').filter({ hasText: 'Kleurplonk' }).first()).toHaveCSS('color', 'rgb(74, 222, 128)');
+});
+
+test('compares all boss tiles and shows partial requirements without inventing completion', async ({ page }, info) => {
+  const errors: string[] = []; page.on('pageerror', e => errors.push(e.message));
+  await page.getByRole('navigation').getByRole('link', { name: 'Results', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Predicted leaderboard', exact: true })).toBeVisible();
+  await expect(page.locator('.prediction-leader')).toHaveCount(5);
+  await expect(page.locator('.prediction-matrix tbody tr')).toHaveCount(37);
+  await expect(page.locator('.prediction-banner')).toContainText('NOT CONFIRMED LOOT');
+  await expect(page.locator('.prediction-leader').first()).toContainText('Team Groen');
+  await page.getByRole('button', { name: 'R3 Team rood prediction', exact: true }).click();
+  await expect(page.locator('.prediction-detail')).toContainText('Insufficient data');
+  await expect(page.locator('.prediction-detail')).toContainText('Dragon boots');
+  await page.getByRole('button', { name: 'Expected drops', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'R3 Team rood prediction', exact: true })).toContainText('Primordial crystal');
+  await page.getByLabel('Search Results tiles').fill('N1');
+  await expect(page.locator('.prediction-matrix tbody tr')).toHaveCount(1);
+  await expect(page.locator('.prediction-cell')).toHaveCount(5);
+  await page.getByRole('button', { name: 'N1 Team rood prediction', exact: true }).click();
+  await expect(page.locator('.prediction-detail')).toContainText('Sarachnis cudgel');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  expect(errors).toEqual([]);
+  await page.screenshot({ path: `/tmp/darkturbo-results-${info.project.name}.png`, fullPage: true });
+});
+
+test('Results assumptions recalculate predictions, persist, reset, and export', async ({ page }) => {
+  await page.getByRole('navigation').getByRole('link', { name: 'Results', exact: true }).click();
+  await page.getByLabel('Search Results tiles').fill('N1');
+  await expect(page.getByLabel('Search Results tiles')).toHaveValue('N1');
+  await expect(page.locator('.prediction-matrix tbody tr')).toHaveCount(1);
+  await page.locator('.prediction-assumptions > summary').click();
+  const input = page.getByLabel('N1:0:sarachnis probability', { exact: true });
+  await input.fill('0'); await input.press('Tab');
+  await expect(page.locator('.prediction-leader .predicted-score').first()).toContainText('0.00');
+  await expect(page.getByRole('button', { name: 'N1 Team rood prediction', exact: true })).toContainText('0.00%');
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Predicted leaderboard', exact: true })).toBeVisible();
+  await page.locator('.prediction-assumptions > summary').click();
+  await expect(input).toHaveValue('0');
+  await page.getByRole('button', { name: 'Reset assumptions', exact: true }).click();
+  await expect(input).not.toHaveValue('0');
+  const download = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Export predictions', exact: true }).click();
+  expect((await download).suggestedFilename()).toBe('competition-160537-predictions.json');
 });

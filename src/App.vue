@@ -16,10 +16,11 @@ import WikiImage from './components/WikiImage.vue';
 const InsightChart = defineAsyncComponent(() => import('./components/InsightChart.vue'));
 import PlayerTable from './components/PlayerTable.vue';
 import TileDrawer from './components/TileDrawer.vue';
+const ResultsPage = defineAsyncComponent(() => import('./components/ResultsPage.vue'));
 
-const pages = ['Bingo', 'Overview', 'Teams', 'Players', 'Bosses'] as const;
+const pages = ['Bingo', 'Overview', 'Results', 'Teams', 'Players', 'Bosses'] as const;
 type Page = typeof pages[number];
-const navIcons = ['pi-th-large', 'pi-chart-bar', 'pi-users', 'pi-user', 'pi-bolt'];
+const navIcons = ['pi-th-large', 'pi-chart-bar', 'pi-trophy', 'pi-users', 'pi-user', 'pi-bolt'];
 const page = ref<Page>('Bingo');
 const data = ref<ExportResult | null>(null);
 const loading = ref(true);
@@ -116,7 +117,7 @@ onUnmounted(() => window.removeEventListener('hashchange', syncHash));
         <div v-if="error" role="alert" class="error-banner"><i class="pi pi-exclamation-triangle"></i>{{ error }}</div>
         <div v-if="loading && !data" class="empty-state"><i class="pi pi-spin pi-spinner"></i><h2>Opening the crypts…</h2></div>
         <template v-if="data">
-          <section class="page-heading"><div><span class="eyebrow">DARKTURBO BINGO · OCTOBER 2026</span><h1>{{ page === 'Bingo' ? 'The Six Crypts' : page === 'Overview' ? 'Every kill tells a story.' : page === 'Teams' ? 'Stronger together.' : page === 'Players' ? 'Behind the kill count.' : 'Know your adversary.' }}</h1><p>{{ page === 'Bingo' ? 'Explore the board. Follow the drops. See what your team’s bossing could bring.' : 'Recorded kills and gained EHB, from the competition’s available snapshots.' }}</p></div><div class="heading-meta"><span class="live-pill"><span></span>{{ data.interim ? 'INTERIM DATA' : 'EVENT ENDED' }}</span><small>{{ date(data.requestedRange.startsAt) }}<br>to {{ date(data.requestedRange.endsAt) }} · Amsterdam</small></div></section>
+          <section class="page-heading"><div><span class="eyebrow">DARKTURBO BINGO · OCTOBER 2026</span><h1>{{ page === 'Bingo' ? 'The Six Crypts' : page === 'Results' ? 'What the drops suggest.' : page === 'Overview' ? 'Every kill tells a story.' : page === 'Teams' ? 'Stronger together.' : page === 'Players' ? 'Behind the kill count.' : 'Know your adversary.' }}</h1><p>{{ page === 'Bingo' ? 'Explore the board. Follow the drops. See what your team’s bossing could bring.' : 'Recorded kills and gained EHB, from the competition’s available snapshots.' }}</p></div><div class="heading-meta"><span class="live-pill"><span></span>{{ data.interim ? 'INTERIM DATA' : 'EVENT ENDED' }}</span><small>{{ date(data.requestedRange.startsAt) }}<br>to {{ date(data.requestedRange.endsAt) }} · Amsterdam</small></div></section>
           <div class="data-strip"><span><i class="pi pi-clock"></i> Exported {{ date(data.generatedAt) }}</span><span>{{ data.successfulPlayers }}/{{ data.playerCount }} players available · {{ keys.length }} boss metrics</span><span v-if="data.failedPlayers || !data.complete" class="warning">Partial export — missing players are not zeroes</span><span v-else>Recorded activity, not confirmed loot</span></div>
 
           <template v-if="page === 'Bingo'">
@@ -126,6 +127,7 @@ onUnmounted(() => window.removeEventListener('hashchange', syncHash));
             <div class="crypt-grid"><section v-for="crypt in visibleCrypts" :key="crypt.name" class="crypt-card"><header class="crypt-header"><div class="crypt-identity"><WikiImage :title="crypt.icon" :size="48" /><div><span class="eyebrow">{{ crypt.epithet }}</span><h2>{{ crypt.name }}’s Crypt</h2></div></div><span class="crypt-points">{{ crypts.find(c => c.name === crypt.name)!.tiles.reduce((s, t) => s + t.points, 0) }} pts</span></header><button class="barrows-link" :aria-label="`${crypt.name} shared Barrows activity`" @click="barrows = crypt.name"><i class="pi pi-key"></i><span>Shared Barrows activity</span><strong>{{ number(total(allPeople, 'kills', ['barrows_chests'])) }} chests</strong><i class="pi pi-arrow-up-right"></i></button><div class="tile-grid"><button v-for="entry in crypt.tiles" :key="entry.id" class="bingo-tile" :aria-label="`${entry.id} ${entry.name}, ${entry.points} points`" @click="tile = entry"><div class="tile-top"><span class="tile-code">{{ entry.id }}</span><span class="tile-points">{{ entry.points }} pt{{ entry.points > 1 ? 's' : '' }}</span></div><WikiImage :title="entry.icon" :size="38" /><strong>{{ entry.name }}</strong><span class="tile-data" :class="{ supported: tileMetrics(entry).length }"><span></span>{{ tileMetrics(entry).length ? 'Boss activity' : 'No boss data' }}</span></button></div></section></div>
           </template>
 
+          <template v-else-if="page === 'Results'"><ResultsPage :dataset="data" @tile="entry => tile = entry" /></template>
           <template v-else>
             <div class="filters panel"><div class="filter-controls"><Select v-if="page === 'Overview' || page === 'Bosses'" v-model="teamFilter" :options="teamOptions" option-label="label" option-value="value" aria-label="Filter teams" /><Select v-if="page === 'Teams'" v-model="selectedTeam" :options="teams" aria-label="Select team" /><Select v-if="page === 'Players'" v-model="selectedPlayer" :options="playerOptions" option-label="label" option-value="value" filter aria-label="Select player" class="player-picker" /><Select v-if="page !== 'Players'" v-model="bossFilter" :options="bossOptions" option-label="label" option-value="value" filter aria-label="Filter boss" /></div><SelectButton v-model="metric" :options="metricOptions" option-label="label" option-value="value" :allow-empty="false" aria-label="Rank by metric" /></div>
 
