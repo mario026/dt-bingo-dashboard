@@ -22,7 +22,26 @@ and full start/end/gained boss statistics. Player colors always follow their tea
 Team and boss filters apply to aggregate views; individual profiles show the full
 competition. Table alternatives accompany charts. Dates use Europe/Amsterdam.
 
-## Predicted Results
+## Statistics
+
+The **Statistics** page lists every tracked boss with gained kill credits for
+Groen, Blauw, Rood, Oranje, Geel, and the competition total. Summary rows show
+all-boss kills, gained boss EHB, and total gained XP in millions. Each row includes
+the leading individual (including ties). Boss search and the active-boss toggle
+only filter boss rows; summary totals always cover the full competition.
+Partial player coverage is marked with `*`; unavailable values display `—`.
+The exporter retains `data.skills.overall.experience` as `overallExperience`
+for each player. Older snapshots without XP remain usable and show XP as unavailable.
+
+## Results
+
+The **Results** page leads with the supplied bingo scores for competition 160537:
+Groen — 102 punten, Blauw — 90 punten, Rood — 89 punten, Oranje — 83 punten,
+and Geel — 73 punten. These recorded scores are independent of WOM statistics,
+prediction filters, and model assumptions. WOM provides boss statistics, not
+confirmed bingo scores.
+
+### Predicted Results
 
 The **Results** page compares all 37 tiles with tracked boss sources across the
 five teams. Switch the matrix between completion chance, expected tile points,

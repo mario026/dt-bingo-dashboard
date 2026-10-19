@@ -5,6 +5,22 @@ const exportedPlayers = exportData.teams.flatMap((t: any) => Object.values(t.pla
 const sum = (ps: any[], metric: 'kills' | 'ehb') => ps.reduce((n, p) => n + Object.values(p.bosses ?? {}).reduce((s: number, b: any) => s + Math.max(0, b[metric].gained), 0), 0);
 const format = (n: number, precision = 0) => n.toLocaleString('en-GB', { minimumFractionDigits: precision, maximumFractionDigits: precision });
 test.beforeEach(async ({ page }) => { await page.goto('./'); await expect(page.getByRole('heading', { name: 'Choose a crypt' })).toBeVisible(); });
+test('shows the full team statistics overview with XP in millions', async ({ page }, info) => {
+  await page.getByRole('navigation').getByRole('link', { name: 'Statistics', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Bosses, EHB & XP per team' })).toBeVisible();
+  await expect(page.locator('.statistics-table tbody tr')).toHaveCount(74);
+  const xp = exportedPlayers.reduce((total, player) => total + (player.status === 'ok' && player.overallExperience?.gained >= 0 ? player.overallExperience.gained : 0), 0);
+  const xpRow = page.locator('[data-stat="xp"]');
+  await expect(xpRow.locator('.statistics-total')).toHaveText(new Intl.NumberFormat('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(xp / 1_000_000));
+  const totalText = await page.locator('[data-stat="kills"] .statistics-total').textContent();
+  await page.getByLabel('Search statistics bosses').fill('Sarachnis');
+  await expect(page.locator('.statistics-table tbody tr')).toHaveCount(4);
+  await expect(page.locator('[data-stat="sarachnis"]')).toBeVisible();
+  await expect(page.locator('[data-stat="kills"] .statistics-total')).toHaveText(totalText!);
+  await page.getByLabel('Search statistics bosses').fill('');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await page.screenshot({ path: `/tmp/darkturbo-statistics-${info.project.name}.png`, fullPage: true });
+});
 test('renders all crypts and tiles without inferred completion status', async ({ page }, info) => {
   await expect(page.locator('.crypt-card')).toHaveCount(6);
   await expect(page.locator('.bingo-tile')).toHaveCount(54);
@@ -105,7 +121,9 @@ test('compares all boss tiles and shows partial requirements without inventing c
   await expect(page.locator('.prediction-leader')).toHaveCount(5);
   await expect(page.locator('.prediction-matrix tbody tr')).toHaveCount(37);
   await expect(page.locator('.prediction-banner')).toContainText('NOT CONFIRMED LOOT');
-  await expect(page.locator('.prediction-leader').first()).toContainText('Team Groen');
+  const predictedScores = (await page.locator('.prediction-leader .predicted-score').allTextContents()).map(text => Number.parseFloat(text.replaceAll(',', '')));
+  expect(predictedScores.every(Number.isFinite)).toBe(true);
+  expect(predictedScores).toEqual([...predictedScores].sort((a, b) => b - a));
   await page.getByRole('button', { name: 'R3 Team rood prediction', exact: true }).click();
   await expect(page.locator('.prediction-detail')).toContainText('Insufficient data');
   await expect(page.locator('.prediction-detail')).toContainText('Dragon boots');

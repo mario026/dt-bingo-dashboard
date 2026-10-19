@@ -56,6 +56,7 @@ export function parseExport(input: unknown): ExportResult {
       if (p.status !== 'ok' && p.status !== 'error') return fail();
       if (p.status === 'error') continue;
       success++;
+      if (p.overallExperience != null && !['start', 'end', 'gained'].every(k => typeof p.overallExperience![k as keyof typeof p.overallExperience] === 'number' && Number.isFinite(p.overallExperience![k as keyof typeof p.overallExperience]))) return fail();
       if (!p.bosses || typeof p.bosses !== 'object' || Array.isArray(p.bosses)) return fail();
       for (const [key, b] of Object.entries(p.bosses) as [string, BossData][]) {
         if (!b || b.metric !== key) return fail();

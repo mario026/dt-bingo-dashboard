@@ -111,6 +111,7 @@ export async function exportCompetitionBossData(competitionId: number, options: 
         throw new Error('Missing bosses in gains response');
       }
       entry.bosses = gains.data.bosses;
+      entry.overallExperience = gains.data.skills?.overall?.experience ?? null;
       entry.snapshotRange = { startsAt: gains.startsAt, endsAt: gains.endsAt };
       entry.status = 'ok';
       result.successfulPlayers++;

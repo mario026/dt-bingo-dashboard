@@ -15,6 +15,16 @@ import WikiImage from './WikiImage.vue';
 const InsightChart = defineAsyncComponent(() => import('./InsightChart.vue'));
 const props = defineProps<{ dataset: ExportResult }>();
 defineEmits<{ tile: [tile: Tile] }>();
+const confirmedResults = {
+  competitionId: 160537,
+  standings: [
+    { team: 'Team Groen', name: 'Groen', points: 102 },
+    { team: 'Team Blauw', name: 'Blauw', points: 90 },
+    { team: 'Team rood', name: 'Rood', points: 89 },
+    { team: 'Team Oranje', name: 'Oranje', points: 83 },
+    { team: 'Team Geel', name: 'Geel', points: 73 },
+  ],
+};
 const settings = ref(defaultSettings());
 const storageWarning = ref('');
 const search = ref('');
@@ -74,6 +84,24 @@ function download() {
 
 <template>
   <div class="results-page">
+    <section v-if="dataset.competition.id === confirmedResults.competitionId" class="panel confirmed-results" aria-labelledby="confirmed-results-title">
+      <div class="section-heading">
+        <div><span class="eyebrow">RECORDED BINGO SCORES</span><h2 id="confirmed-results-title">Confirmed results</h2><p class="muted">Bingo scores supplied separately from WOM boss statistics and the predictions below.</p></div>
+        <i class="pi pi-trophy results-trophy" aria-hidden="true"></i>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Rank</th><th scope="col">Team</th><th scope="col">Score</th></tr></thead>
+          <tbody>
+            <tr v-for="(row, index) in confirmedResults.standings" :key="row.team" :class="{ 'results-winner': index === 0 }" :style="{ '--team-color': colorFor(row.team) }">
+              <td><span class="leader-rank">#{{ index + 1 }}</span></td>
+              <th scope="row"><span class="team-dot" aria-hidden="true"></span> {{ row.name }}<span v-if="index === 0" class="winner-label">Winner</span></th>
+              <td class="confirmed-score">{{ row.points }} punten</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
     <section class="prediction-banner"><div><span class="eyebrow">PREDICTED RESULTS · NOT CONFIRMED LOOT</span><h2>Who is ahead on drop potential?</h2><p>Completion chances use the recorded kills and the drops required for each tile. Predicted points = tile points × the chance of obtaining <em>all</em> required components.</p><p>Data as of {{ date(dataset.generatedAt) }} · {{ dataset.interim ? 'competition still in progress' : 'competition export' }}. No future kills are projected. Crypt unlocks, non-boss tiles, and actual loot are not included.</p></div><Button label="Export predictions" icon="pi pi-download" severity="secondary" size="small" @click="download" /></section>
     <div class="filters panel results-filters"><div class="filter-controls"><Select v-model="crypt" :options="[{ label: 'All crypts', value: null }, ...crypts.map(c => ({ label: `${c.name}'s Crypt`, value: c.name }))]" option-label="label" option-value="value" aria-label="Results crypt filter" placeholder="All crypts" /><InputText v-model="search" placeholder="Find a tile or item…" aria-label="Search Results tiles" /></div><MultiSelect v-model="selectedTeams" :options="teamNames" :max-selected-labels="1" selected-items-label="{0} teams compared" placeholder="Choose teams to compare" aria-label="Results teams to compare" /></div>
     <div class="section-heading"><div><h2>Predicted leaderboard</h2><p class="muted">{{ ranking[0]?.assessed ?? 0 }} comparable tiles · {{ ranking[0]?.possiblePoints ?? 0 }} possible points · current crypt/search filters apply. Ranks always compare all teams on the same tiles.</p></div><Button label="Reset assumptions" icon="pi pi-refresh" severity="secondary" size="small" @click="reset" /></div>

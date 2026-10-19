@@ -21,7 +21,7 @@ test('exports every player by team using exact competition dates and preserves u
       paths.push(path);
       return (paths.length === 1 ? competition : {
         startsAt: '2026-10-09T10:05:00.000Z', endsAt: '2026-10-14T18:00:00.000Z',
-        data: { bosses: { abyssal_sire: boss } },
+        data: { bosses: { abyssal_sire: boss }, skills: { overall: { experience: { start: 1000000, end: 2500000, gained: 1500000 } } } },
       }) as T;
     },
   });
@@ -36,6 +36,7 @@ test('exports every player by team using exact competition dates and preserves u
     assert.equal(url.searchParams.get('endDate'), competition.endsAt);
   }
   assert.deepEqual(result.teams[0].players.alice.bosses?.abyssal_sire, boss);
+  assert.deepEqual(result.teams[0].players.alice.overallExperience, { start: 1000000, end: 2500000, gained: 1500000 });
   assert.equal(result.teams[0].players.alice.snapshotRange?.startsAt, '2026-10-09T10:05:00.000Z');
 });
 

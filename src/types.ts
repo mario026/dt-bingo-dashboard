@@ -15,7 +15,7 @@ export interface Competition {
 }
 export interface Gains {
   startsAt: string | null; endsAt: string | null;
-  data: { bosses: Record<string, BossData> };
+  data: { bosses: Record<string, BossData>; skills?: { overall?: { experience: Change } } };
 }
 export interface PlayerExport {
   player: Player;
@@ -23,6 +23,7 @@ export interface PlayerExport {
   status: 'ok' | 'error';
   snapshotRange: { startsAt: string | null; endsAt: string | null } | null;
   bosses: Record<string, BossData> | null;
+  overallExperience?: Change | null;
   error?: string;
 }
 export interface ExportResult {

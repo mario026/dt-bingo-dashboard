@@ -18,9 +18,11 @@ import PlayerTable from './components/PlayerTable.vue';
 import TileDrawer from './components/TileDrawer.vue';
 const ResultsPage = defineAsyncComponent(() => import('./components/ResultsPage.vue'));
 
-const pages = ['Bingo', 'Overview', 'Results', 'Teams', 'Players', 'Bosses'] as const;
+const StatisticsPage = defineAsyncComponent(() => import('./components/StatisticsPage.vue'));
+
+const pages = ['Bingo', 'Overview', 'Results', 'Teams', 'Players', 'Bosses', 'Statistics'] as const;
 type Page = typeof pages[number];
-const navIcons = ['pi-th-large', 'pi-chart-bar', 'pi-trophy', 'pi-users', 'pi-user', 'pi-bolt'];
+const navIcons = ['pi-th-large', 'pi-chart-bar', 'pi-trophy', 'pi-users', 'pi-user', 'pi-bolt', 'pi-table'];
 const page = ref<Page>('Bingo');
 const data = ref<ExportResult | null>(null);
 const loading = ref(true);
@@ -117,7 +119,7 @@ onUnmounted(() => window.removeEventListener('hashchange', syncHash));
         <div v-if="error" role="alert" class="error-banner"><i class="pi pi-exclamation-triangle"></i>{{ error }}</div>
         <div v-if="loading && !data" class="empty-state"><i class="pi pi-spin pi-spinner"></i><h2>Opening the crypts…</h2></div>
         <template v-if="data">
-          <section class="page-heading"><div><span class="eyebrow">DARKTURBO BINGO · OCTOBER 2026</span><h1>{{ page === 'Bingo' ? 'The Six Crypts' : page === 'Results' ? 'What the drops suggest.' : page === 'Overview' ? 'Every kill tells a story.' : page === 'Teams' ? 'Stronger together.' : page === 'Players' ? 'Behind the kill count.' : 'Know your adversary.' }}</h1><p>{{ page === 'Bingo' ? 'Explore the board. Follow the drops. See what your team’s bossing could bring.' : 'Recorded kills and gained EHB, from the competition’s available snapshots.' }}</p></div><div class="heading-meta"><span class="live-pill"><span></span>{{ data.interim ? 'INTERIM DATA' : 'EVENT ENDED' }}</span><small>{{ date(data.requestedRange.startsAt) }}<br>to {{ date(data.requestedRange.endsAt) }} · Amsterdam</small></div></section>
+          <section class="page-heading"><div><span class="eyebrow">DARKTURBO BINGO · OCTOBER 2026</span><h1>{{ page === 'Bingo' ? 'The Six Crypts' : page === 'Results' ? 'The bingo results.' : page === 'Statistics' ? 'The competition at a glance.' : page === 'Overview' ? 'Every kill tells a story.' : page === 'Teams' ? 'Stronger together.' : page === 'Players' ? 'Behind the kill count.' : 'Know your adversary.' }}</h1><p>{{ page === 'Bingo' ? 'Explore the board. Follow the drops. See what your team’s bossing could bring.' : page === 'Results' ? 'Recorded bingo scores and boss-drop predictions for the competition.' : 'Recorded kills and gained EHB, from the competition’s available snapshots.' }}</p></div><div class="heading-meta"><span class="live-pill"><span></span>{{ data.interim ? 'INTERIM DATA' : 'EVENT ENDED' }}</span><small>{{ date(data.requestedRange.startsAt) }}<br>to {{ date(data.requestedRange.endsAt) }} · Amsterdam</small></div></section>
           <div class="data-strip"><span><i class="pi pi-clock"></i> Exported {{ date(data.generatedAt) }}</span><span>{{ data.successfulPlayers }}/{{ data.playerCount }} players available · {{ keys.length }} boss metrics</span><span v-if="data.failedPlayers || !data.complete" class="warning">Partial export — missing players are not zeroes</span><span v-else>Recorded activity, not confirmed loot</span></div>
 
           <template v-if="page === 'Bingo'">
@@ -128,6 +130,7 @@ onUnmounted(() => window.removeEventListener('hashchange', syncHash));
           </template>
 
           <template v-else-if="page === 'Results'"><ResultsPage :dataset="data" @tile="entry => tile = entry" /></template>
+          <template v-else-if="page === 'Statistics'"><StatisticsPage :dataset="data" /></template>
           <template v-else>
             <div class="filters panel"><div class="filter-controls"><Select v-if="page === 'Overview' || page === 'Bosses'" v-model="teamFilter" :options="teamOptions" option-label="label" option-value="value" aria-label="Filter teams" /><Select v-if="page === 'Teams'" v-model="selectedTeam" :options="teams" aria-label="Select team" /><Select v-if="page === 'Players'" v-model="selectedPlayer" :options="playerOptions" option-label="label" option-value="value" filter aria-label="Select player" class="player-picker" /><Select v-if="page !== 'Players'" v-model="bossFilter" :options="bossOptions" option-label="label" option-value="value" filter aria-label="Filter boss" /></div><SelectButton v-model="metric" :options="metricOptions" option-label="label" option-value="value" :allow-empty="false" aria-label="Rank by metric" /></div>
 
